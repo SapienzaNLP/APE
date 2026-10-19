@@ -6,13 +6,13 @@
 [![git](https://img.shields.io/badge/Model%20and%20Data-yellow.svg)](https://huggingface.co/collections/sapienzanlp/ape)
 </div>
 
-> This repository contains the official code for the EMNLP 2026 main conference paper: [*Variable-size Discovery and Representation of Atomic Propositions*](link) by [**Francesco Ortame**](https://www.linkedin.com/in/francesco-ortame/) and [**Roberto Navigli**](https://www.linkedin.com/in/robertonavigli/).
+> This repository contains the official code for [**Variable-size Discovery and Representation of Atomic Propositions**](https://aclanthology.org/2024.acl-long.722/) ([Francesco Ortame](https://www.linkedin.com/in/francesco-ortame/) and [Roberto Navigli](https://www.linkedin.com/in/robertonavigli/), EMNLP 2026 main).
 
 ## Description
 
-APE is an encoder-decoder transformer model that produces variable-size representations from text. For a given input sentence, APE:
+APE is an encoder-decoder transformer model that produces variable-size representations from text. For a given input sentence, in a single forward pass APE:
 
-* **Discovers** the number of atomic propositions;
+* **Discovers** the set of atomic propositions;
 * **Represents** each atomic proposition with an embedding vector.
 
 Differently from fixed-size sentence embeddings, APE representations **scale naturally with input complexity**.
@@ -143,7 +143,9 @@ A1   0.833  0.985
 
 ## Training
 
-APE ([ape-bge-small](https://huggingface.co/sapienzanlp/ape-bge-small)) is trained on [Atomic WikiSplit](https://huggingface.co/datasets/sapienzanlp/atomic-wikisplit), a dataset we introduce alongside the model. This dataset features pairs of sentences and atomic propositions obtained using [gpt-oss-120b](https://arxiv.org/abs/2508.10925). We designed APE's training objective as pseudo-distillation of a frozen teacher encoder: each active slot is matched to the teacher embedding of one gold proposition via linear sum assignment (Hungarian matching).
+APE ([ape-bge-small](https://huggingface.co/sapienzanlp/ape-bge-small)) is trained on [Atomic WikiSplit](https://huggingface.co/datasets/sapienzanlp/atomic-wikisplit), a dataset we introduce alongside the model. This dataset features pairs of sentences and atomic propositions obtained using [gpt-oss-120b](https://arxiv.org/abs/2508.10925).
+
+We designed APE's training objective as pseudo-distillation of a frozen teacher encoder: each active slot is matched to the teacher embedding of one gold proposition via linear sum assignment (Hungarian matching).
 
 To train an APE model, run:
 
@@ -241,19 +243,20 @@ This will run every benchmark selected in [src/ape/evaluation/config.py](src/ape
 - [**STS-B**](https://huggingface.co/datasets/mteb/stsbenchmark-sts) and [**SICK-R**](https://huggingface.co/datasets/mteb/sickr-sts): Spearman correlation and Pearson (as a diagnostic, Pearson's assumptions likely do not hold here).
 - [**PropSearch**](https://huggingface.co/datasets/sapienzanlp/propsearch): atom-to-sentence retrieval, Recall@k and MRR (see below).
 - **Count analysis** (`python -m ape.evaluation.count_analysis`): accuracy of the predicted number of propositions,
-  on the held-out split of atomic-wikisplit and on PropSearch.
+  on the held-out split of Atomic WikiSplit and on PropSearch.
 
 Results are also reported on the subset of multi-proposition pairs (either sentence has at least two APE propositions).
 
 ### PropSearch
 
-[PropSearch](https://huggingface.co/datasets/sapienzanlp/propsearch) is a simple atom-to-sentence retrieval benchmark:
+In addition to evaluating APE on established benchmarks, we introduce [PropSearch](https://huggingface.co/datasets/sapienzanlp/propsearch), a simple atom-to-sentence retrieval benchmark:
 given an atomic proposition, retrieve the sentence it comes from, in a corpus padded with 300k distractor sentences.
-Recall@1/5/10 and MRR are reported overall and by the number of atoms of the source sentence.
+
+PropSearch is stratified by propositional complexity. Recall@1/5/10 and MRR are reported both overall and by the number of atoms of the source sentence.
 
 ![propsearch example](media/propsearch_example.png)
 
-The benchmark data can be found [on the HF Hub](https://huggingface.co/datasets/sapienzanlp/propsearch) and is structured as follows:
+This benchmark is created specifically for testing the quality of decomposed proposition-level representations more directly, and it can be found [on the HF Hub](https://huggingface.co/datasets/sapienzanlp/propsearch). It is structured as follows:
 
 | Subset | Content |
 |:--|:--|
@@ -285,6 +288,15 @@ We use the `hungarian` scoring rule for PAWS-Wiki, `h_min_to_p` for SNLI and Pro
 
 If you find our work helpful, please consider citing it:
 
-```
-TBA, waiting for EMNLP 2026 proceedings.
+```bibtex
+@inproceedings{ortame-navigli-2026-variable,
+    title = "Variable-size Discovery and Representation of Atomic Propositions",
+    author = "Ortame, Francesco  and
+      Navigli, Roberto",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+}
 ```
