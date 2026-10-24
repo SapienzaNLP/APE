@@ -1,12 +1,12 @@
 <div align="center">
   <img src="media/title_image.png">
 
-[![Conference](https://img.shields.io/badge/EMNLP%202026%20Paper-red)](link)
+[![Conference](https://img.shields.io/badge/EMNLP%202026%20Paper-red)](https://aclanthology.org/2026.emnlp-main.2302/)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-green.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![git](https://img.shields.io/badge/Model%20and%20Data-yellow.svg)](https://huggingface.co/collections/sapienzanlp/ape)
 </div>
 
-> This repository contains the official code for [**Variable-size Discovery and Representation of Atomic Propositions**](https://aclanthology.org/2024.acl-long.722/) ([Francesco Ortame](https://www.linkedin.com/in/francesco-ortame/) and [Roberto Navigli](https://www.linkedin.com/in/robertonavigli/), EMNLP 2026 main).
+> This repository contains the official code for [**Variable-size Discovery and Representation of Atomic Propositions**](https://aclanthology.org/2026.emnlp-main.2302/) ([Francesco Ortame](https://www.linkedin.com/in/francesco-ortame/) and [Roberto Navigli](https://www.linkedin.com/in/robertonavigli/), EMNLP 2026 main).
 
 ## Description
 
@@ -293,10 +293,17 @@ If you find our work helpful, please consider citing it:
     title = "Variable-size Discovery and Representation of Atomic Propositions",
     author = "Ortame, Francesco  and
       Navigli, Roberto",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
     booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
     month = oct,
     year = "2026",
     address = "Budapest, Hungary",
     publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.2302/",
+    pages = "52330--52348",
+    ISBN = "979-8-89176-459-0"
 }
 ```
